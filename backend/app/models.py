@@ -1,12 +1,9 @@
 import uuid
 from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, Boolean, Text, Numeric
 from sqlalchemy.dialects.postgresql import UUID, JSONB
-from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-
-# Khởi tạo lớp Base để các Model kế thừa
-Base = declarative_base()
+from .database import Base
 
 class User(Base):
     __tablename__ = 'users'
@@ -32,6 +29,7 @@ class Document(Base):
     file_path_url = Column(Text, nullable=False)
     upload_date = Column(DateTime(timezone=True), server_default=func.now())
     status = Column(String(50), default='Pending') # Pending, Processed, Error
+    version = Column(Integer, default=1)
 
     # Quan hệ ngược lại với User
     owner = relationship("User", back_populates="documents")
@@ -68,3 +66,15 @@ class Log(Base):
 
     # Quan hệ ngược lại với FormulaEntry
     formula = relationship("FormulaEntry", back_populates="logs")
+
+class UserFavorites(Base):
+    __tablename__ = 'user_favorites'
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(UUID(as_uuid=True), ForeignKey('users.user_id', ondelete='CASCADE'), nullable=False)
+    formula_id = Column(UUID(as_uuid=True), ForeignKey('formula_entries.id', ondelete='CASCADE'), nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    # Quan hệ
+    user = relationship("User", backref="favorites")
+    formula = relationship("FormulaEntry", backref="favorited_by")

@@ -1,0 +1,12 @@
+[
+  {"latex": "E = mc^2"},
+  {"latex": "a^2 + b^2 = c^2"},
+  {"latex": "\\int_{a}^{b} x^2 dx"},
+  {"latex": "\\sum_{i=1}^{n} i = \\frac{n(n+1)}{2}"},
+  {"latex": "e^{i\\pi} + 1 = 0"},
+  {"latex": "F = G \\frac{m_1 m_2}{r^2}"},
+  {"latex": "\\nabla \\cdot \\mathbf{E} = \\frac{\\rho}{\\varepsilon_0}"},
+  {"latex": "\\Delta x \\Delta p \\ge \\frac{\\hbar}{2}"},
+  {"latex": "i\\hbar\\frac{\\partial}{\\partial t} \\Psi = \\hat{H}\\Psi"},
+  {"latex": "PV = nRT"}
+]
